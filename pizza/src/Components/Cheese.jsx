@@ -39,7 +39,7 @@ const handleTouchEnd = (e) => {
         data-cheese="Cheddar" 
         data-type="cheese"// Add this line
       >
-        <img src='cheddar.png' alt='Cheddar' />
+        <img loading="lazy" src='cheddar.png' alt='Cheddar' />
       </button>
       <button
         draggable
@@ -50,7 +50,7 @@ const handleTouchEnd = (e) => {
         data-cheese="Mozzarella"
         data-type="cheese"
       >
-        <img src='mozzarella.png' alt='Mozzarella' />
+        <img loading="lazy" src='mozzarella.png' alt='Mozzarella' />
       </button>
     </>
  );
