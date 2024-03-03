@@ -1,0 +1,33 @@
+.component-wrapper {
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 400px;
+  margin: 0 auto;
+  /* display: flex; */
+}
+
+.drop {
+  width: 600px;
+  height: 400px;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+  .component-wrapper {
+    padding: 5px; /* Reduce padding for smaller screens */
+    max-width: 300px; /* Adjust maximum width for smaller screens */
+  }
+
+  .drop {
+    width: 100%; /* Full width for smaller screens */
+    height: 300px; /* Adjust height for smaller screens */
+    margin: 10px auto; /* Adjust margin for smaller screens */
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+}
