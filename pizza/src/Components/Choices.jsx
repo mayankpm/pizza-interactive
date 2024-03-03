@@ -1,5 +1,5 @@
 // Choices.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Toppings from './Toppings';
 import Size from './Size';
 import Crust from './Crust';
@@ -145,8 +145,8 @@ export default function Choices() {
    
 
 
-  return (
-    <>
+   return (
+    <Suspense fallback={<div>Loading...</div>}>
       <div className='choices'>
         <div className='component-wrapper'>
           {React.cloneElement(components[currentComponent], {
@@ -166,33 +166,19 @@ export default function Choices() {
         </div>
       </div>
 
+      <button className='back-btn' onClick={previousComponent}>Back</button>
+      <button className='next-btn' onClick={nextComponent}>Next</button>
 
-
-        <button className='back-btn' onClick={previousComponent}>Back</button>
-        <button className='next-btn' onClick={nextComponent}>Next</button>
-  
-<div
-    className='drop'
-    onDragOver={(e) => e.preventDefault()}
-    onDrop={handleDrop}
-    onTouchStart={(e) => handleTouchStart(e)}
-    onTouchMove={(e) => handleTouchMove(e)}
-    onTouchEnd={(e) => handleTouchEnd(e)}
->
-    <Pizza ingredients={ingredients}/>
-</div>
-
-
-      {/* <button onClick={() => {
-        setIngredients({
-          "crust": ["White"],
-          "size": ["Medium - 12"],
-          "cheese": ["Mozzarella"],
-          "toppings": ["Pepperoni", "Mushrooms", "Onions"]
-        });
-      }}>
-        Test Ingredients
-      </button> */}
-    </>
- );
+      <div
+        className='drop'
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={handleDrop}
+        onTouchStart={(e) => handleTouchStart(e)}
+        onTouchMove={(e) => handleTouchMove(e)}
+        onTouchEnd={(e) => handleTouchEnd(e)}
+      >
+        <Pizza ingredients={ingredients} />
+      </div>
+    </Suspense>
+  );
 }
