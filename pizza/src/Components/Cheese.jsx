@@ -1,45 +1,45 @@
-// Cheese.jsx
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 
 export default function Cheese({ selectedCrust, selectedSize, handleCheeseSelection }) {
- const [selectedCheese, setSelectedCheese] = useState(null);
+  const [selectedCheese, setSelectedCheese] = useState(null);
 
- const handleCheeseClick = (cheeseType) => {
+  const handleCheeseClick = (cheeseType) => {
     setSelectedCheese(cheeseType);
     handleCheeseSelection(cheeseType);
- };
+  };
 
- const handleDragStart = (e, cheeseType) => {
+  const handleDragStart = (e, cheeseType) => {
     e.dataTransfer.setData('text/plain', cheeseType);
- };
+  };
 
- const handleTouchStart = (e, cheeseType) => {
-  e.preventDefault();
-  setSelectedCheese(cheeseType);
-  handleCheeseSelection(cheeseType);
-};
+  const handleTouchStart = (e, cheeseType) => {
+    e.preventDefault();
+    setSelectedCheese(cheeseType);
+    handleCheeseSelection(cheeseType);
+  };
 
-const handleTouchEnd = (e) => {
-  e.preventDefault();
-  const toppingName = e.target.dataset.topping;
-  handleToppingAdded(toppingName);
-};
+  const handleTouchEnd = (e) => {
+    e.preventDefault();
+    const toppingName = e.target.dataset.topping;
+    handleToppingAdded(toppingName);
+  };
 
- return (
+  return (
     <>
-      {/* <div>Cheese</div>
+          <Suspense fallback={<div>Loading...</div>}>
+      <h2>Cheese</h2>
       {selectedCrust && <p>Selected Base: {selectedCrust}</p>}
-      {selectedSize && <p>Selected Size: {selectedSize}</p>} */}
+      {selectedSize && <p>Selected Size: {selectedSize}</p>}
       <button
         draggable
         onDragStart={(e) => handleDragStart(e, 'Cheddar')}
         onTouchStart={(e) => handleTouchStart(e, 'Cheddar')}
         className={selectedCheese === 'Cheddar' ? 'selected' : ''}
         onClick={() => handleCheeseClick('Cheddar')}
-        data-cheese="Cheddar" 
-        data-type="cheese"// Add this line
+        data-cheese="Cheddar"
+        data-type="cheese"
       >
-        <img loading="lazy" src='cheddar.png' alt='Cheddar' />
+        <img src='cheddar.png' alt='Cheddar' />
       </button>
       <button
         draggable
@@ -50,8 +50,9 @@ const handleTouchEnd = (e) => {
         data-cheese="Mozzarella"
         data-type="cheese"
       >
-        <img loading="lazy" src='mozzarella.png' alt='Mozzarella' />
+        <img src='mozzarella.png' alt='Mozzarella' />
       </button>
+      </Suspense>
     </>
- );
+  );
 }

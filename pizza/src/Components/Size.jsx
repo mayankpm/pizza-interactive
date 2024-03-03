@@ -1,17 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, Suspense } from 'react';
 
 export default function Size({ selectedCrust, handleSizeSelection }) {
- const [selectedSize, setSelectedSize] = useState('Small - 10');
- const [isResizing, setIsResizing] = useState(false);
- const [resizeStartX, setResizeStartX] = useState(0);
- const pizzaRef = useRef(null);
+  const [selectedSize, setSelectedSize] = useState('Small - 10');
+  const [isResizing, setIsResizing] = useState(false);
+  const [resizeStartX, setResizeStartX] = useState(0);
+  const pizzaRef = useRef(null);
 
- const updateSize = (newSize) => {
- handleSizeSelection(newSize);
- setSelectedSize(newSize);
-};
+  const updateSize = (newSize) => {
+    handleSizeSelection(newSize);
+    setSelectedSize(newSize);
+  };
 
- useEffect(() => {
+  useEffect(() => {
     const handleMouseDown = (e) => {
       setIsResizing(true);
       setResizeStartX(e.clientX);
@@ -73,35 +73,37 @@ export default function Size({ selectedCrust, handleSizeSelection }) {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
     };
- }, [isResizing, resizeStartX, handleSizeSelection]); // Add handleSizeSelection to the dependency array
+  }, [isResizing, resizeStartX, handleSizeSelection]); // Add handleSizeSelection to the dependency array
 
- return (
+  return (
     <div>
-      <h2>Size</h2>
-      {selectedCrust && <p>Selected Crust: {selectedCrust}</p>}
-      <div
-        ref={pizzaRef}
-        className="size-images"
-        style={{
-          resize: 'both',
-          overflow: 'auto',
-          maxWidth: '600px',
-          maxHeight: '600px',
-          position: 'relative',
-          width: '300px', // Initial size
-          height: '300px', // Initial size
-        }}
-      >
-        <div className="size-indicator" style={{ width: '33.33%', position: 'absolute', top: '0', left: '0' }}></div>
-        <div className="size-indicator" style={{ width: '33.33%', position: 'absolute', top: '0', left: '33.33%' }}></div>
-        <div className="size-indicator" style={{ width: '33.33%', position: 'absolute', top: '0', left: '66.66%' }}></div>
-        <img
-          src={selectedCrust === 'White' ? 'white bread copy.png' : 'whole wheat copy.png'}
-          alt={`Selected Size: ${selectedSize}`}
-          style={{ width: 'auto', height: 'auto', maxWidth: '100%', maxHeight: '100%' }}
-        />
-      </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <h2>Size</h2>
+        {selectedCrust && <p>Selected Crust: {selectedCrust}</p>}
+        <div
+          ref={pizzaRef}
+          className="size-images"
+          style={{
+            resize: 'both',
+            overflow: 'auto',
+            maxWidth: '600px',
+            maxHeight: '600px',
+            position: 'relative',
+            width: '300px', // Initial size
+            height: '300px', // Initial size
+          }}
+        >
+          <div className="size-indicator" style={{ width: '33.33%', position: 'absolute', top: '0', left: '0' }}></div>
+          <div className="size-indicator" style={{ width: '33.33%', position: 'absolute', top: '0', left: '33.33%' }}></div>
+          <div className="size-indicator" style={{ width: '33.33%', position: 'absolute', top: '0', left: '66.66%' }}></div>
+          <img
+            src={selectedCrust === 'White' ? 'white bread copy.png' : 'whole wheat copy.png'}
+            alt={`Selected Size: ${selectedSize}`}
+            style={{ width: 'auto', height: 'auto', maxWidth: '100%', maxHeight: '100%' }}
+          />
+        </div>
+      </Suspense>
       {/* <Cheese selectedSize={selectedSize} /> */}
     </div>
- );
+  );
 }
