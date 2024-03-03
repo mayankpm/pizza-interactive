@@ -16,7 +16,7 @@ export default function Crust({ handleCrustSelection }) {
     }, 2000);
   };
 
-    // Carousel settings
+  // Carousel settings
   const settings = {
     infinite: true,
     speed: 500,
@@ -34,14 +34,14 @@ export default function Crust({ handleCrustSelection }) {
           onClick={() => handleClick("White")}
         >
           <h3>White</h3>
-          <img src="public\white bread copy.png" alt="Crust White" />
+          <img loading="lazy" src="public\white bread copy.png" alt="Crust White" />
         </button>
         <button
           className={`center-content ${selectedOption === "Wheat" ? "selected" : ""}`}
           onClick={() => handleClick("Wheat")}
         >
           <h3>Wheat</h3>
-          <img src="public\whole wheat copy.png" alt="Crust Wheat" />
+          <img loading="lazy" src="public\whole wheat copy.png" alt="Crust Wheat" />
         </button>
       </Slider>
       {selectedOption && <p className="selected-msg">Selected: {selectedOption}</p>}
